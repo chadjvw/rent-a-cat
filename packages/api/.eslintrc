@@ -1,0 +1,50 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "jsx": false,
+      "project": ["./tsconfig.json"]
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ],
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "ignoreUrls": true,
+          "ignoreTrailingComments": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "code": 120
+        }
+      ],
+      "no-restricted-syntax": [
+        "error",
+        "BinaryExpression[operator='in']"
+      ],
+      "no-unneeded-ternary": [
+        "error",
+        {
+          "defaultAssignment": true
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-use-before-define": "off",
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/require-await": "off"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ]
+  }
+  

@@ -1,0 +1,9 @@
+{
+  "name": "@rent-a-cat/api",
+  "version": "1.0.0",
+  "description": "rent-a-cat API",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.610.0"
+  }
+}

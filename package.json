@@ -1,0 +1,47 @@
+{
+  "name": "rent-a-cat",
+  "version": "1.0.0",
+  "description": "Rent cats online!",
+  "repository": "https://github.com/chadjvw/rent-a-cat",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/web",
+      "**/web/**"
+    ]
+  },
+  "scripts": {
+    "format": "prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{js,ts,json,yml,html,md,vue}'"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/aws-lambda": "^8.10.40",
+    "@types/node": "^13.7.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "babel-loader": "^8.0.6",
+    "cache-loader": "^4.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "prettier": "^1.19.1",
+    "serverless-s3-sync": "^1.10.2",
+    "serverless-scriptable-plugin": "^1.0.5",
+    "serverless-webpack": "^5.3.1",
+    "terser-webpack-plugin": "^2.3.4",
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5"
+  }
+}

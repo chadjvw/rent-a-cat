@@ -1,0 +1,9 @@
+// import custom vars
+@import 'variables';
+
+// @import '~typeface-roboto/index.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+// bootstrap stuff - this goes last
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';

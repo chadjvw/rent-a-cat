@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@rent-a-cat/web/*": ["web/src/*"],
+      "@rent-a-cat/api/*": ["api/src/*"]
+    },
+    "target": "esnext",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["./packages/web/src/**/*", "./packages/api/src/**/*"],
+  "exclude": [
+    "node_modules",
+    "./packages/**/node_modules/**",
+    "./packages/**/.webpack/**",
+    "./packages/**/.cache-loader/**",
+    "./packages/**/dist/**"
+  ]
+}

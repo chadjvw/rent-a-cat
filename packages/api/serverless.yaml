@@ -1,0 +1,111 @@
+service:
+  name: rent-a-cat-api
+
+custom:
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: false
+    packager: yarn
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  versionFunctions: false
+  stage: dev
+  region: us-east-1
+  memorySize: 1024
+  timeout: 15
+  logRetentionInDays: 7
+  logs:
+    restApi: true
+    websocket: true
+  tags:
+    Rent-A-Cat: API-${opt:stage, self:provider.stage}
+  stackTags:
+    Rent-A-Cat: API-${opt:stage, self:provider.stage}
+  apiGateway:
+    minimumCompressionSize: 150 # size of a single packet
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    TABLE: rent-a-cat-${opt:stage, self:provider.stage}-table
+  # given the time, each labmda function would have its own individual IAM role
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamoDb:PutItem
+        - dynamoDb:Query
+        - dynamoDb:GetItem
+        - dynamoDb:UpdateItem
+        - dynamoDb:DeleteItem
+      Resource:
+        - Fn::GetAtt: [Database, Arn]
+
+package:
+  individually: true
+
+# given the time, I would use Cognito as authentication and to provide federation into AWS
+# this will let each lambda assume a role for the incoming identity and ensure
+# security and seperation between tenets
+functions:
+  PopulateDatabase:
+    handler: src/rest/ANY-populate-db.handler
+    events:
+      - http:
+          method: any
+          path: api/populate
+          cors: true
+  GetCats:
+    handler: src/rest/GET-cats.handler
+    events:
+      - http:
+          method: get
+          path: api/cats
+          cors: true
+  GetCart:
+    handler: src/rest/GET-cart.handler
+    events:
+      - http:
+          method: get
+          path: api/cart/{cartId}
+          cors: true
+  UpdateCart:
+    handler: src/rest/PUT-cart.handler
+    events:
+      - http:
+          method: put
+          path: api/cart/{cartId}
+          cors: true
+  SubmitOrder:
+    handler: src/rest/POST-order.handler
+    events:
+      - http:
+          method: post
+          path: api/order
+          request:
+            parameters:
+              querystrings:
+                cartId: true
+          cors: true
+
+resources:
+  Resources:
+    Database:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: SK
+            AttributeType: S
+          - AttributeName: PK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        SSESpecification:
+          SSEEnabled: true
+        TableName: rent-a-cat-${opt:stage, self:provider.stage}-table
