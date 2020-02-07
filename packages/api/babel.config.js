@@ -1,7 +1,7 @@
 module.exports = function(api) {
   api.cache(true)
 
-  const plugins = ['lodash']
+  const plugins = []
 
   const presets = [
     [
