@@ -4,31 +4,41 @@
 
 ### Dependencies
 
-- [NodeJS](https://nodejs.org/en/download/)
-- [Classic Yarn](https://classic.yarnpkg.com/en/docs/install)
-- [Serverless Framework CLI](https://serverless.com/framework/docs/providers/aws/guide/installation/)
+- [Docker](https://docs.docker.com/install/)
 
 ### Deployment Steps
 
 #### Deploy API
 
 1. Clone the `rent-a-cat` repository
-2. Execute `yarn install` inside the directory
-3. `cd` into the `packages/api` directory
-4. Execute `sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>`
-5. Wait for deployment to finish
-6. Copy the `ServiceEndpoint` URL from the `Stack Outputs` section
-7. Execute `curl <Service Endpoint URL>/api/populate`
+2. Execute `docker run -it -w /opt/rent-a-cat -v $(pwd):/opt/rent-a-cat amaysim/serverless:1.60.0 yarn install` inside the directory
+3. Execute the following command:
+```bash
+docker run -it \
+-w /opt/rent-a-cat/packages/api \
+-v $(pwd):/opt/rent-a-cat \
+amaysim/serverless:1.60.0 \
+sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>
+```
+4. Wait for deployment to finish
+5. Copy the `ServiceEndpoint` URL from the `Stack Outputs` section
+6. Execute `curl <Service Endpoint URL>/api/populate`
 
 #### Deploy Website
 
-1. `cd` into the `packages/web` directory
-2. Open the `.env` file and replace `<Service Endpoint URL>` with the Service Endpoint URL from the previous deployment
-3. Execute `sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>`
-4. Wait for deployment to finish
-5. If the depolyment fails with an exception stating that a bucket with that name already exists rerun the deploy command with the `--stage <new stage name>`
-6. Copy the `RentACatWebsiteURL` from the `Stack Outputs` section
-7. Open the URL in a browser
+1. Open the `.env` file and replace `<Service Endpoint URL>` with the Service Endpoint URL from the previous deployment
+2. Execute the following command:
+```bash
+docker run -it \
+-w /opt/rent-a-cat/packages/web \
+-v $(pwd):/opt/rent-a-cat \
+amaysim/serverless:1.60.0 \
+sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>
+```
+3. Wait for deployment to finish
+4. If the depolyment fails with an exception stating that a bucket with that name already exists rerun the deploy command with the `--stage <new stage name>`
+5. Copy the `RentACatWebsiteURL` from the `Stack Outputs` section
+6. Open the URL in a browser
 
 ## How the Site Works
 
