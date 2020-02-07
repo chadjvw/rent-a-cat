@@ -16,6 +16,7 @@
 ```bash
 docker run -it \
 -w /opt/rent-a-cat/packages/api \
+-v ~/.aws:/root/.aws:ro \
 -v $(pwd):/opt/rent-a-cat \
 amaysim/serverless:1.60.0 \
 sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>
@@ -31,6 +32,7 @@ sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --reg
 ```bash
 docker run -it \
 -w /opt/rent-a-cat/packages/web \
+-v ~/.aws:/root/.aws:ro \
 -v $(pwd):/opt/rent-a-cat \
 amaysim/serverless:1.60.0 \
 sls deploy --verbose --aws-profile <AWS CLI Profile to use for deployment> --region <AWS region to use for deployment>
