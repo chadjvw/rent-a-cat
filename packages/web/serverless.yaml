@@ -16,7 +16,7 @@ provider:
 
 custom:
   scriptHooks:
-  before:package:createDeploymentArtifacts: yarn build
+    before:package:createDeploymentArtifacts: yarn build
   s3Sync:
     - bucketName: rent-a-cat-website-${opt:stage, self:provider.stage}
       localDir: dist
