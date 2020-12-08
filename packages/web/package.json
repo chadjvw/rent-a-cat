@@ -35,6 +35,6 @@
     "typescript": "^3.7.5",
     "vue-property-decorator": "^8.3.0",
     "vue-template-compiler": "^2.6.11",
-    "webpack-subresource-integrity": "^1.4.0"
+    "webpack-subresource-integrity": "^1.5.1"
   }
 }
